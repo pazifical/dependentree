@@ -1,2 +1,1 @@
-# dependentree
-A JavaScript NPM Dependency Visualiser
+https://registry.npmjs.org/vue/latest
