@@ -22,4 +22,33 @@ function renderLibrary(library) {
     <h1>${library.name}<sub>${library.version}</sub></h1>
     <p>${library.description}</p>
     <ul>${dependencies}</ul>`;
+
+    renderNetwork(library);
+}
+
+function renderNetwork(library) {
+    const nodes = [{ id: 0, label: library.name }]
+
+    let i = 1;
+    for (const name of Object.keys(library.dependencies)) {
+        nodes.push({ id: i, label: name });
+        i += 1;
+    }
+
+    const visNodes = new vis.DataSet(nodes);
+
+    const edges = [];
+    for (let j = 1; j < i; j++) {
+        edges.push({ from: 0, to: j });
+    }
+
+    const visEdges = new vis.DataSet(edges);
+
+    const container = document.getElementById("network");
+    const data = {
+        nodes: visNodes,
+        edges: visEdges
+    };
+    const options = {};
+    const network = new vis.Network(container, data, options);
 }
